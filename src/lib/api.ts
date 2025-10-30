@@ -1,4 +1,8 @@
-const API_BASE = "http://localhost:8000";
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export async function fetchDashboard() {
   const res = await fetch(`${API_BASE}/dashboard`);
@@ -18,6 +22,7 @@ export async function fetchBudgets() {
 }
 
 export async function createExpense(expense: { amount: number; description: string; category?: string }) {
+  console.log("API_BASE: ", API_BASE);
   return fetch(`${API_BASE}/expenses`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
